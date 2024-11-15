@@ -5,7 +5,6 @@ import com.ruoyi.RuoYiApplication;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.project.spc.service.ISpcDataSummaryService;
 import org.junit.jupiter.api.Test;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -24,8 +23,6 @@ public class ApplicationTest {
     @Autowired
     ISpcDataSummaryService spcDataSummaryService;
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
 
     @Autowired
     private MailUtil mailUtil;

@@ -1,6 +1,5 @@
 package com.ruoyi.framework.config;
 
-import com.ruoyi.framework.security.ldap.MyLdapProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -56,9 +55,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
      */
     @Autowired
     private CorsFilter corsFilter;
-
-    @Autowired
-    private MyLdapProvider provider;
     
     /**
      * 解决 无法直接注入 AuthenticationManager
@@ -143,9 +139,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
     {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-        auth.authenticationProvider(provider);
-        auth.userDetailsService(userDetailsService);
-//        .passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 }
