@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.spc.mapper.SpcParamMapper">
+
+    <select id="queryPage" resultType="com.ruoyi.project.spc.domain.SpcParam">
+        SELECT * FROM spc_param
+    </select>
+</mapper>

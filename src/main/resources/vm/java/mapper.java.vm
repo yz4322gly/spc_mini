@@ -1,0 +1,25 @@
+package ${packageName}.mapper;
+
+import java.util.List;
+import java.util.Map;
+import ${packageName}.domain.${ClassName};
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+/**
+ * ${functionName}Mapper接口
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Mapper
+public interface ${ClassName}Mapper extends BaseMapper<${ClassName}>
+{
+    /**
+     * 查询${functionName}列表
+     * 
+     * @return ${functionName}集合
+     */
+    List<${ClassName}> queryPage(@Param("params") Map<String, Object> params);
+}

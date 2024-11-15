@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.spc.mapper.SpcDataSummaryMapper">
+    <insert id="saveOrUpdateBatchByUk">
+        insert into spc_data_summary (
+        lot_id,data_time,param_key,mean,mid,q1,q3,range_span,
+        std,max,min,sample_size, tool_id,recipe_id,
+        product_id,site_id,process_id,extra1_id,extra2_id,valid_flag,remark)
+        values
+        <foreach collection="dataList" item="data" separator=",">
+            (
+            #{data.lotId},#{data.dataTime},#{data.paramKey},#{data.mean},#{data.mid},#{data.q1},#{data.q3},#{data.rangeSpan},
+            #{data.std},#{data.max},#{data.min},#{data.sampleSize},#{data.toolId},#{data.recipeId},
+            #{data.productId},#{data.siteId},#{data.processId},#{data.extra1Id},#{data.extra2Id},#{data.validFlag},#{data.remark})
+        </foreach>
+        on duplicate key update
+        mean = values(mean),
+        mid = values(mid),
+        q1 = values(q1),
+        q3 = values(q3),
+        range_span = values(range_span),
+        std = values(std),
+        max = values(max),
+        min = values(min),
+        sample_size= values(sample_size)
+    </insert>
+
+    <select id="queryPage" resultType="com.ruoyi.project.spc.domain.SpcDataSummary">
+        SELECT * FROM spc_data_summary
+    </select>
+    <select id="getSummaryDetailsMini" resultType="com.ruoyi.project.spc.domain.vo.SpcDataMiniVo">
+        SELECT lot_id,data_time,param_value,
+        ROW_NUMBER() over ( partition by lot_id,data_time order by param_value) as group_number,
+        tool_id,recipe_id,product_id,site_id,process_id
+        FROM spc_mini.spc_data
+        where param_key = #{paramKey} and valid_flag = 1
+        <if test="lotId != null and lotId != ''">
+            AND lot_id = #{lotId}
+        </if>
+        <if test="dataTime != null and dataTime != ''">
+            AND data_time = #{dataTime}
+        </if>
+    </select>
+    <select id="chartSummaryData" resultType="com.ruoyi.project.spc.domain.SpcDataSummary">
+        SELECT
+        *
+        FROM
+        spc_mini.spc_data_summary
+        WHERE
+        param_key = #{chart.paramKey}
+        <if test="params.startTime != null and params.startTime != ''">
+            and data_time &gt;= #{params.startTime}
+        </if>
+        <if test="params.endTime != null and params.endTime != ''">
+            and data_time &lt;= #{params.endTime}
+        </if>
+        <if test="params.chartToolId != null and params.chartToolId != ''">
+            AND tool_id in
+            <foreach item="item" index="index" collection="params.chartToolId" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="params.chartRecipeId != null and params.chartRecipeId != ''">
+            AND recipe_id in
+            <foreach item="item" index="index" collection="params.chartRecipeId" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="params.chartProductId != null and params.chartProductId != ''">
+            AND product_id in
+            <foreach item="item" index="index" collection="params.chartProductId" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="params.chartSiteId != null and params.chartSiteId != ''">
+            AND site_id in
+            <foreach item="item" index="index" collection="params.chartSiteId" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="params.chartProcessId != null and params.chartProcessId != ''">
+            AND process_id in
+            <foreach item="item" index="index" collection="params.chartProcessId" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="params.extra1Id != null and params.extra1Id != ''">
+            AND extra1_id in
+            <foreach item="item" index="index" collection="params.extra1Id" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="params.extra2Id != null and params.extra2Id != ''">
+            AND extra2_id in
+            <foreach item="item" index="index" collection="params.extra2Id" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <choose>
+            <when test="params.validFlag == 0">
+                AND valid_flag = 0
+            </when>
+            <otherwise>
+                AND valid_flag = 1
+            </otherwise>
+        </choose>
+        ORDER BY data_time
+        <if test="params.sortOrder == 'desc'">
+            desc
+        </if>
+        <if test="params.limit != null and params.limit != ''">
+            limit ${params.limit}
+        </if>
+    </select>
+
+
+    <select id="listDataBySummaryId" resultType="com.ruoyi.project.spc.domain.SpcData">
+        select * FROM spc_data
+        where
+        param_key = #{summary.paramKey}
+        and lot_id = #{summary.lotId}
+        and data_time = #{summary.dataTime}
+    </select>
+</mapper>
