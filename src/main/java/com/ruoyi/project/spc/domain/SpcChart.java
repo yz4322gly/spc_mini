@@ -72,6 +72,8 @@ public class SpcChart
     /** 下控制线 */
     @Excel(name = "下控制线")
     private Double lcl;
+    @Excel(name = "中心线")
+    private Double cl;
     /** 设计目标值 */
     @Excel(name = "设计目标值")
     private Double target;
