@@ -1,5 +1,6 @@
 package com.ruoyi.project.spc.domain.vo;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ruoyi.framework.aspectj.lang.annotation.Excel;
 import lombok.Data;
@@ -44,5 +45,14 @@ public class SpcDataMiniVo
     /** 过滤条件:工艺号 */
     @Excel(name = "过滤条件:工艺号")
     private String processId;
+
+    /** 预留字段1_可选 */
+    @Excel(name = "预留字段1_可选")
+    @ExcelProperty("extra1_id")
+    private String extra1Id;
+    /** 预留字段2_可选 */
+    @Excel(name = "预留字段2_可选")
+    @ExcelProperty("extra2_id")
+    private String extra2Id;
 
 }

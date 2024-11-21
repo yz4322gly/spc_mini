@@ -92,6 +92,8 @@ public class SpcDataSummaryServiceImpl extends ServiceImpl<SpcDataSummaryMapper,
             summary.setProductId(one.getProductId());
             summary.setSiteId(one.getSiteId());
             summary.setProcessId(one.getProcessId());
+            summary.setExtra1Id(one.getExtra1Id());
+            summary.setExtra2Id(one.getExtra2Id());
             summary.setValidFlag(1);
             summaryList.add(summary);
         }
@@ -358,6 +360,14 @@ public class SpcDataSummaryServiceImpl extends ServiceImpl<SpcDataSummaryMapper,
         if (StringUtils.isNotEmpty(chart.getProcessId())) {
             String[] array = chart.getProcessId().split(comma);
             params.put("chartProcessId", Arrays.asList(array));
+        }
+        if (StringUtils.isNotEmpty((String) params.get("extra1Id"))) {
+            String[] array = ((String) params.get("extra1Id")).split(comma);
+            params.put("chartExtra1Id", Arrays.asList(array));
+        }
+        if (StringUtils.isNotEmpty((String) params.get("extra2Id"))) {
+            String[] array = ((String) params.get("extra2Id")).split(comma);
+            params.put("chartExtra2Id", Arrays.asList(array));
         }
         //检验可能出现的sql注入
         if (params.get("limit") != null && StringUtils.isNotEmpty(params.get("limit").toString())) {

@@ -86,15 +86,15 @@
                 #{item}
             </foreach>
         </if>
-        <if test="params.extra1Id != null and params.extra1Id != ''">
+        <if test="params.chartExtra1Id != null and params.chartExtra1Id != ''">
             AND extra1_id in
-            <foreach item="item" index="index" collection="params.extra1Id" open="(" separator="," close=")">
+            <foreach item="item" index="index" collection="params.chartExtra1Id" open="(" separator="," close=")">
                 #{item}
             </foreach>
         </if>
-        <if test="params.extra2Id != null and params.extra2Id != ''">
+        <if test="params.chartExtra2Id != null and params.chartExtra2Id != ''">
             AND extra2_id in
-            <foreach item="item" index="index" collection="params.extra2Id" open="(" separator="," close=")">
+            <foreach item="item" index="index" collection="params.chartExtra2Id" open="(" separator="," close=")">
                 #{item}
             </foreach>
         </if>
