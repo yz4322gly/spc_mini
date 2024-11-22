@@ -45,4 +45,6 @@ public interface ISpcDataSummaryService  extends IService<SpcDataSummary>
 
 
     List<SpcData> listDataBySummary(Map<String, Object> params, SpcDataSummary summary);
+
+    List<Double> listDataRowBySummaryId(SpcDataSummary summary);
 }

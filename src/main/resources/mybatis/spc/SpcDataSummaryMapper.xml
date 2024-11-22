@@ -123,4 +123,11 @@
         and lot_id = #{summary.lotId}
         and data_time = #{summary.dataTime}
     </select>
+    <select id="listDataRowBySummaryId" resultType="java.lang.Double">
+        select param_value FROM spc_data
+        where
+        param_key = #{summary.paramKey}
+        and lot_id = #{summary.lotId}
+        and data_time = #{summary.dataTime}
+    </select>
 </mapper>

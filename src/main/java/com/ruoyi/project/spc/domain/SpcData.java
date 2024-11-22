@@ -35,7 +35,7 @@ public class SpcData
     /** 参数值 */
     @Excel(name = "参数值")
     @ExcelProperty("param_value")
-    private String paramValue;
+    private Double paramValue;
     /** 数据时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ExcelProperty("data_time")

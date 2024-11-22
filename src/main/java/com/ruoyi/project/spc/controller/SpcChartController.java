@@ -80,6 +80,24 @@ public class SpcChartController extends BaseController {
         return getDataTable(dataList);
     }
 
+    /**
+     * 通过summary的id查询明细数据,以密集数组形式返回
+     * @param id summary的id
+     * @returns {*}
+     */
+    @PreAuthorize("@ss.hasPermi('spc:chart:list')")
+    @GetMapping("/listDataRowBySummaryId")
+    public AjaxResult listDataRowBySummaryId(@RequestParam Long id)
+    {
+        SpcDataSummary summary = spcDataSummaryService.getById(id);
+        if (summary == null)
+        {
+            throw new ServiceException("无明细数据可用!");
+        }
+        List<Double> dataList = spcDataSummaryService.listDataRowBySummaryId(summary);
+        return AjaxResult.success(dataList);
+    }
+
 
     /**
      * 导出spc管制图列表

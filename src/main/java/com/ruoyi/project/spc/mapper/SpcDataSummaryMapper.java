@@ -47,7 +47,8 @@ public interface SpcDataSummaryMapper extends BaseMapper<SpcDataSummary>
 
 
     List<SpcData> listDataBySummaryId(@Param("params") Map<String, Object> params, @Param("summary") SpcDataSummary summary);
-
+    List<Double> listDataRowBySummaryId(@Param("summary") SpcDataSummary summary);
 
     void saveOrUpdateBatchByUk(@Param("dataList") List<SpcDataSummary> spcDataSummaries);
+
 }

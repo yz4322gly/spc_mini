@@ -384,4 +384,9 @@ public class SpcDataSummaryServiceImpl extends ServiceImpl<SpcDataSummaryMapper,
     public List<SpcData> listDataBySummary(Map<String, Object> params, SpcDataSummary summary) {
         return baseMapper.listDataBySummaryId(params, summary);
     }
+
+    @Override
+    public List<Double> listDataRowBySummaryId(SpcDataSummary summary) {
+        return baseMapper.listDataRowBySummaryId(summary);
+    }
 }
